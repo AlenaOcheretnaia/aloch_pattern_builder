@@ -9,23 +9,24 @@ public class Main {
         System.out.println(mom);
         Person son = mom.newChildBuilder()
                 .setName("Антошка")
+                .setAge(8)
                 .build();
         System.out.println("У " + mom + " есть сын, " + son);
 
         try {
             // Не хватает обязательных полей
             new PersonBuilder().build();
-        } catch (IllegalStateException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
 
         try {
             // Возраст недопустимый
-            new PersonBuilder().setAge(-100).build();
+            new PersonBuilder().setName("Ivan").setSurname("Ivanov").setAge(-100).build();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
-   }
+    }
 }

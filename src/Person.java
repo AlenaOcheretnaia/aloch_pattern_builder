@@ -1,8 +1,7 @@
 public class Person {
-    protected final String name;
-    protected final String surname;
-    private int age;
-    private boolean knownAge;
+    private final String name;
+    private final String surname;
+    private Integer age;
     private String address;
 
     public Person(String name, String surname) {
@@ -23,10 +22,8 @@ public class Person {
     }
 
     public boolean hasAge() {
-        if (knownAge)
-            return true;
-        else
-            return false;
+        if (age != null) return true;
+        else return false;
     }
 
     public String getAddress() {
@@ -44,32 +41,30 @@ public class Person {
         this.address = address;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
-        this.knownAge = true;
     }
 
     public void happyBirthday() {
-        if (knownAge)
+        if (hasAge())
             this.setAge(this.getAge() + 1);
+        else
+            System.out.println("Возраст неизветен");
     }
-//с уже заполненными фамилией (родительской), возрастом и текущим городом жительства (родительским)
+
+    //с уже заполненными фамилией, текущим городом жительства (родительскими)
     public PersonBuilder newChildBuilder() {
         return new PersonBuilder()
                 .setSurname(this.surname)
-                .setAge(8)
                 .setAddress(this.address);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Person: name=").append(this.name).append(" surname=").append(this.surname);
-        if (hasAge()) builder.append(" age=").append(this.age);
-        if (this.hasAddress())
-            builder.append(" address=").append(this.address);
+        builder.append("Person: name=").append(this.name).append(" surname=").append(this.surname)
+                .append(" age=").append(this.age).append(" address=").append(this.address);
         return builder.toString();
     }
-
 
 }
